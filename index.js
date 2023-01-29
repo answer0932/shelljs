@@ -11,13 +11,23 @@ if (exec('git add .').code !== 0) {
 shell.echo('Success: Git add 执行成功');
 
 if (exec(`git commit -am "${name}"`).code !== 0) {
-    echo('Error: Git commit failed');
-    exit(1);
+    shell.echo('Error: Git commit failed');
+    shell.exit(1);
 }
 
 shell.echo('Success: Git Commit 执行成功');
 
+if (exec('git push').code !== 0) {
+    shell.echo('Error: Git push failed');
+    exit(1);
+}
+
+shell.echo('Success: Git Push 执行成功');
+
+exec(`echo git success ${name}`);
+
 console.time(1)
+
 try {
     throw new Error()
 } catch (e) {
